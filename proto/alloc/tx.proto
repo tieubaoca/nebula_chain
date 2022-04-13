@@ -1,0 +1,13 @@
+syntax = "proto3";
+package nghuyenthevinh2000.nebula.alloc;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/nghuyenthevinh2000/nebula/x/alloc/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+}
+
+// this line is used by starport scaffolding # proto/tx/message
