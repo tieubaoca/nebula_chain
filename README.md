@@ -3,6 +3,8 @@
 
 nebula is an interchain launchpad
 
+nebula is my graduation thesis :))
+
 ## Get started
 
 ```
