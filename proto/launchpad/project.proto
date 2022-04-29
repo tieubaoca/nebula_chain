@@ -27,20 +27,26 @@ message Project {
         (gogoproto.moretags) = "yaml:\"project_address\""
     ];
 
+    // Whether project is already active
+    bool project_active = 4 [
+        (gogoproto.nullable) = false,
+        (gogoproto.moretags) = "yaml:\"project_active\""
+    ];
+
     // Project information
-    string project_information = 4 [
+    string project_information = 5 [
         (gogoproto.moretags) = "yaml:\"project_information\""
     ];
 
     // Begin time for a project
-    google.protobuf.Timestamp start_time = 5 [
+    google.protobuf.Timestamp start_time = 6 [
         (gogoproto.stdtime) = true,
         (gogoproto.nullable) = false,
         (gogoproto.moretags) = "yaml:\"start_time\""
     ];
 
     // Release mechanism
-    google.protobuf.Any release_mechanism = 6 [
+    google.protobuf.Any release_mechanism = 7 [
         (cosmos_proto.accepts_interface) = "ReleaseMechanismI",
         (gogoproto.moretags) = "yaml:\"release_mechanism\""
     ];

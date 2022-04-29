@@ -19,14 +19,28 @@ This module will save plenty of time for new project to lauch.
 1. project_id: unique id of project
 1. project_address: to store tokens
 1. project_information: information for the project
+    * One can only modify project_information when the project is not active
+    * Needs a field to check if the project is already active
 1. start_time: start time of project schedule.
+    * One can only modify start_time when the project is not active
+    * Needs a field to check if the project is already active
 1. release_mechanism: the release mechanism used for this project. If a chain intends to use multiple release mechanism on different phases, it should create multiple projects.
+1. project_active: Is the current project already active
+
+# global params
+1. global_project_id: this serves as counter to keep track of number of projects. 
+    * genesis value of this param will reflect total number of project at genesis
+    * because of the above, I cannot add this to params.proto
 
 # tx Message
 1. CreateProject: tx message CreateProject to create a project.
 1. DeleteProject: tx message DeleteProject to delete a project.
+    * Can only delete if the project is not active
 1. ModifyStartTime: tx message ModifyStartTime to modify start time of a project.
-1. ModifyProjectInformation (through gov): gov proposal to modify a project information. A project information should be as stable as possible to build trust with users and investors.
+    * Can only delete if the project is not active
+1. ModifyProjectInformation: tx message to modify a project information. A project information should be as stable as possible to build trust with users and investors.
+    * Can only delete if the project is not active
 
 # query Message
-1. QueryProjectByID: query message project through project_id.
+1. Project: query project information through project_id.
+2. TotalProjectID: get total number of project_id

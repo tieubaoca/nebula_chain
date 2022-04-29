@@ -11,4 +11,10 @@ option go_package = "github.com/nghuyenthevinh2000/nebula/x/launchpad/types";
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
+  
+  // initial Project at genesis
+  repeated Project projects = 2;
+
+  // global project id. The start of global project id will start from the number of project at genesis.
+  uint64 global_project_id_start = 3;
 }
