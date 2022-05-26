@@ -1,5 +1,5 @@
 syntax = "proto3";
-package notionallabs.anone.launchpad;
+package nghuyenthevinh2000.nebula.launchpad;
 
 import "gogoproto/gogo.proto";
 

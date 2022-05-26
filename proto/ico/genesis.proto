@@ -1,5 +1,5 @@
 syntax = "proto3";
-package notionallabs.anone.ico;
+package nghuyenthevinh2000.nebula.ico;
 
 import "gogoproto/gogo.proto";
 import "ico/params.proto";
