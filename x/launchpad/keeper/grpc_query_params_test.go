@@ -1,12 +1,13 @@
 package keeper_test
 
+/*
 import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
-	testkeeper 	"github.com/nghuyenthevinh2000/nebula/testutil/keeper"
+	testkeeper "github.com/nghuyenthevinh2000/nebula/testutil/keeper"
 	"github.com/nghuyenthevinh2000/nebula/x/launchpad/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestParamsQuery(t *testing.T) {
@@ -19,3 +20,4 @@ func TestParamsQuery(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, &types.QueryParamsResponse{Params: params}, response)
 }
+*/

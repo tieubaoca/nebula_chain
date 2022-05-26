@@ -1,5 +1,5 @@
 syntax = "proto3";
-package nghuyenthevinh2000.nebula.launchpad;
+package notionallabs.anone.launchpad;
 
 import "launchpad/params.proto";
 import "launchpad/project.proto";
@@ -40,7 +40,6 @@ message QueryParamsResponse {
 
 message ProjectRequest {
   uint64 project_id = 1 [
-    (gogoproto.nullable) = false,
     (gogoproto.moretags) = "yaml:\"project_id\""
   ];
 }
@@ -58,7 +57,7 @@ message TotalProjectRequest {
 }
 
 message TotalProjectResponse {
-  repeated uint64 projects_id = 1;
+  repeated Project projects = 1 [ (gogoproto.nullable) = false ];
 
-  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

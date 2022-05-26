@@ -92,21 +92,18 @@ import (
 
 	"github.com/nghuyenthevinh2000/nebula/docs"
 	allocmodule "github.com/nghuyenthevinh2000/nebula/x/alloc"
-		allocmodulekeeper "github.com/nghuyenthevinh2000/nebula/x/alloc/keeper"
-		allocmoduletypes "github.com/nghuyenthevinh2000/nebula/x/alloc/types"
-claimmodule "github.com/nghuyenthevinh2000/nebula/x/claim"
-		claimmodulekeeper "github.com/nghuyenthevinh2000/nebula/x/claim/keeper"
-		claimmoduletypes "github.com/nghuyenthevinh2000/nebula/x/claim/types"
-launchpadmodule "github.com/nghuyenthevinh2000/nebula/x/launchpad"
-		launchpadmodulekeeper "github.com/nghuyenthevinh2000/nebula/x/launchpad/keeper"
-		launchpadmoduletypes "github.com/nghuyenthevinh2000/nebula/x/launchpad/types"
-icomodule "github.com/nghuyenthevinh2000/nebula/x/ico"
-		icomodulekeeper "github.com/nghuyenthevinh2000/nebula/x/ico/keeper"
-		icomoduletypes "github.com/nghuyenthevinh2000/nebula/x/ico/types"
-participatemodule "github.com/nghuyenthevinh2000/nebula/x/participate"
-		participatemodulekeeper "github.com/nghuyenthevinh2000/nebula/x/participate/keeper"
-		participatemoduletypes "github.com/nghuyenthevinh2000/nebula/x/participate/types"
-// this line is used by starport scaffolding # stargate/app/moduleImport
+	allocmodulekeeper "github.com/nghuyenthevinh2000/nebula/x/alloc/keeper"
+	allocmoduletypes "github.com/nghuyenthevinh2000/nebula/x/alloc/types"
+	claimmodule "github.com/nghuyenthevinh2000/nebula/x/claim"
+	claimmodulekeeper "github.com/nghuyenthevinh2000/nebula/x/claim/keeper"
+	claimmoduletypes "github.com/nghuyenthevinh2000/nebula/x/claim/types"
+	icomodule "github.com/nghuyenthevinh2000/nebula/x/ico"
+	icomodulekeeper "github.com/nghuyenthevinh2000/nebula/x/ico/keeper"
+	icomoduletypes "github.com/nghuyenthevinh2000/nebula/x/ico/types"
+	launchpadmodule "github.com/nghuyenthevinh2000/nebula/x/launchpad"
+	launchpadmodulekeeper "github.com/nghuyenthevinh2000/nebula/x/launchpad/keeper"
+	launchpadmoduletypes "github.com/nghuyenthevinh2000/nebula/x/launchpad/types"
+	// this line is used by starport scaffolding # stargate/app/moduleImport
 )
 
 const (
@@ -159,11 +156,10 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		allocmodule.AppModuleBasic{},
-claimmodule.AppModuleBasic{},
-launchpadmodule.AppModuleBasic{},
-icomodule.AppModuleBasic{},
-participatemodule.AppModuleBasic{},
-// this line is used by starport scaffolding # stargate/app/moduleBasic
+		claimmodule.AppModuleBasic{},
+		launchpadmodule.AppModuleBasic{},
+		icomodule.AppModuleBasic{},
+		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
 	// module account permissions
@@ -232,17 +228,14 @@ type App struct {
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
-	
-		AllocKeeper allocmodulekeeper.Keeper
+	AllocKeeper allocmodulekeeper.Keeper
 
-		ClaimKeeper claimmodulekeeper.Keeper
+	ClaimKeeper claimmodulekeeper.Keeper
 
-		LaunchpadKeeper launchpadmodulekeeper.Keeper
+	LaunchpadKeeper launchpadmodulekeeper.Keeper
 
-		IcoKeeper icomodulekeeper.Keeper
-
-		ParticipateKeeper participatemodulekeeper.Keeper
-// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+	IcoKeeper icomodulekeeper.Keeper
+	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
 	mm *module.Manager
@@ -279,11 +272,10 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		allocmoduletypes.StoreKey,
-claimmoduletypes.StoreKey,
-launchpadmoduletypes.StoreKey,
-icomoduletypes.StoreKey,
-participatemoduletypes.StoreKey,
-// this line is used by starport scaffolding # stargate/app/storeKey
+		claimmoduletypes.StoreKey,
+		launchpadmoduletypes.StoreKey,
+		icomoduletypes.StoreKey,
+		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -381,57 +373,43 @@ participatemoduletypes.StoreKey,
 		&stakingKeeper, govRouter,
 	)
 
-	
-		app.AllocKeeper = *allocmodulekeeper.NewKeeper(
-			appCodec,
-			keys[allocmoduletypes.StoreKey],
-			keys[allocmoduletypes.MemStoreKey],
-			app.GetSubspace(allocmoduletypes.ModuleName),
-			
-			)
-		allocModule := allocmodule.NewAppModule(appCodec, app.AllocKeeper, app.AccountKeeper, app.BankKeeper)
+	app.AllocKeeper = *allocmodulekeeper.NewKeeper(
+		appCodec,
+		keys[allocmoduletypes.StoreKey],
+		keys[allocmoduletypes.MemStoreKey],
+		app.GetSubspace(allocmoduletypes.ModuleName),
+	)
+	allocModule := allocmodule.NewAppModule(appCodec, app.AllocKeeper, app.AccountKeeper, app.BankKeeper)
 
-		
-		app.ClaimKeeper = *claimmodulekeeper.NewKeeper(
-			appCodec,
-			keys[claimmoduletypes.StoreKey],
-			keys[claimmoduletypes.MemStoreKey],
-			app.GetSubspace(claimmoduletypes.ModuleName),
-			
-			)
-		claimModule := claimmodule.NewAppModule(appCodec, app.ClaimKeeper, app.AccountKeeper, app.BankKeeper)
+	app.ClaimKeeper = *claimmodulekeeper.NewKeeper(
+		appCodec,
+		keys[claimmoduletypes.StoreKey],
+		keys[claimmoduletypes.MemStoreKey],
+		app.GetSubspace(claimmoduletypes.ModuleName),
+	)
+	claimModule := claimmodule.NewAppModule(appCodec, app.ClaimKeeper, app.AccountKeeper, app.BankKeeper)
 
-		
-		app.LaunchpadKeeper = *launchpadmodulekeeper.NewKeeper(
-			appCodec,
-			keys[launchpadmoduletypes.StoreKey],
-			keys[launchpadmoduletypes.MemStoreKey],
-			app.GetSubspace(launchpadmoduletypes.ModuleName),
-			
-			)
-		launchpadModule := launchpadmodule.NewAppModule(appCodec, app.LaunchpadKeeper, app.AccountKeeper, app.BankKeeper)
+	app.LaunchpadKeeper = *launchpadmodulekeeper.NewKeeper(
+		appCodec,
+		keys[launchpadmoduletypes.StoreKey],
+		app.GetSubspace(launchpadmoduletypes.ModuleName),
+		app.AccountKeeper,
+	)
+	launchpadModule := launchpadmodule.NewAppModule(appCodec, app.LaunchpadKeeper, app.AccountKeeper)
 
-		
-		app.IcoKeeper = *icomodulekeeper.NewKeeper(
-			appCodec,
-			keys[icomoduletypes.StoreKey],
-			keys[icomoduletypes.MemStoreKey],
-			app.GetSubspace(icomoduletypes.ModuleName),
-			
-			)
-		icoModule := icomodule.NewAppModule(appCodec, app.IcoKeeper, app.AccountKeeper, app.BankKeeper)
+	app.IcoKeeper = *icomodulekeeper.NewKeeper(
+		appCodec,
+		keys[icomoduletypes.StoreKey],
+		keys[icomoduletypes.MemStoreKey],
+		app.GetSubspace(icomoduletypes.ModuleName),
+		app.LaunchpadKeeper,
+		app.BankKeeper,
+		app.AccountKeeper,
+	)
 
-		
-		app.ParticipateKeeper = *participatemodulekeeper.NewKeeper(
-			appCodec,
-			keys[participatemoduletypes.StoreKey],
-			keys[participatemoduletypes.MemStoreKey],
-			app.GetSubspace(participatemoduletypes.ModuleName),
-			
-			)
-		participateModule := participatemodule.NewAppModule(appCodec, app.ParticipateKeeper, app.AccountKeeper, app.BankKeeper)
+	icoModule := icomodule.NewAppModule(appCodec, app.IcoKeeper, app.AccountKeeper, app.BankKeeper)
 
-		// this line is used by starport scaffolding # stargate/app/keeperDefinition
+	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter()
@@ -470,11 +448,10 @@ participatemoduletypes.StoreKey,
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		allocModule,
-claimModule,
-launchpadModule,
-icoModule,
-participateModule,
-// this line is used by starport scaffolding # stargate/app/appModule
+		claimModule,
+		launchpadModule,
+		icoModule,
+		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -509,11 +486,10 @@ participateModule,
 		evidencetypes.ModuleName,
 		ibctransfertypes.ModuleName,
 		allocmoduletypes.ModuleName,
-claimmoduletypes.ModuleName,
-launchpadmoduletypes.ModuleName,
-icomoduletypes.ModuleName,
-participatemoduletypes.ModuleName,
-// this line is used by starport scaffolding # stargate/app/initGenesis
+		claimmoduletypes.ModuleName,
+		launchpadmoduletypes.ModuleName,
+		icomoduletypes.ModuleName,
+		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -536,11 +512,10 @@ participatemoduletypes.ModuleName,
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		allocModule,
-claimModule,
-launchpadModule,
-icoModule,
-participateModule,
-// this line is used by starport scaffolding # stargate/app/appModule
+		claimModule,
+		launchpadModule,
+		icoModule,
+		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
 
@@ -728,11 +703,10 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(allocmoduletypes.ModuleName)
-paramsKeeper.Subspace(claimmoduletypes.ModuleName)
-paramsKeeper.Subspace(launchpadmoduletypes.ModuleName)
-paramsKeeper.Subspace(icomoduletypes.ModuleName)
-paramsKeeper.Subspace(participatemoduletypes.ModuleName)
-// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(claimmoduletypes.ModuleName)
+	paramsKeeper.Subspace(launchpadmoduletypes.ModuleName)
+	paramsKeeper.Subspace(icomoduletypes.ModuleName)
+	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
 }
